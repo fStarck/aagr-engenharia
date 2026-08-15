@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAGR Engenharia</title>
+<meta name="description" content="AAGR Engenharia — site em construção. Entre em contato.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#12161a;
+    --bg-1:#1a2025;
+    --line:#2c343b;
+    --line-strong:#3d474f;
+    --ink:#eceef0;
+    --ink-dim:#8b95a1;
+    --amber:#f2a93b;
+    --steel:#5c8aa3;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html,body{height:100%;}
+
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:'Barlow',sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* blueprint grid backdrop */
+  .grid-bg{
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:44px 44px;
+    opacity:.35;
+    z-index:0;
+    mask-image:radial-gradient(ellipse 90% 70% at 50% 35%, black 30%, transparent 78%);
+  }
+
+  /* slow scanning sweep, respects reduced motion */
+  .scan{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:linear-gradient(180deg, transparent 0%, rgba(242,169,59,0.05) 48%, transparent 100%);
+    background-size:100% 260%;
+    animation:sweep 14s linear infinite;
+  }
+  @keyframes sweep{
+    0%{background-position:0 -160%;}
+    100%{background-position:0 260%;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .scan{animation:none;}
+  }
+
+  main{
+    position:relative;
+    z-index:1;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:8vh 6vw 4vh;
+  }
+
+  .logo{
+    width:min(360px, 62vw);
+    height:auto;
+    margin-bottom:36px;
+    filter:drop-shadow(0 6px 18px rgba(0,0,0,.35));
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--steel);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:28px;
+  }
+  .eyebrow::before, .eyebrow::after{
+    content:"";
+    width:26px;
+    height:1px;
+    background:var(--line-strong);
+  }
+
+  h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:clamp(2.6rem, 8vw, 6rem);
+    letter-spacing:.02em;
+    line-height:.95;
+    color:var(--ink);
+  }
+  h1 span{
+    color:var(--amber);
+  }
+
+  .tagline{
+    margin-top:22px;
+    max-width:520px;
+    font-size:clamp(1rem, 2.4vw, 1.15rem);
+    color:var(--ink-dim);
+    line-height:1.55;
+  }
+
+  .status{
+    margin-top:40px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink);
+    background:rgba(242,169,59,0.08);
+    border:1px solid rgba(242,169,59,0.4);
+    padding:9px 18px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+  .status .dot{
+    width:7px;
+    height:7px;
+    background:var(--amber);
+    border-radius:50%;
+    box-shadow:0 0 0 0 rgba(242,169,59,.6);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(242,169,59,.5);}
+    70%{box-shadow:0 0 0 8px rgba(242,169,59,0);}
+    100%{box-shadow:0 0 0 0 rgba(242,169,59,0);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .status .dot{animation:none;}
+  }
+
+  /* title block, styled after an engineering drawing title block */
+  .titleblock{
+    position:relative;
+    z-index:1;
+    width:100%;
+    border-top:1px solid var(--line-strong);
+    background:var(--bg-1);
+  }
+  .titleblock-inner{
+    max-width:1000px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+  }
+  .tb-cell{
+    padding:18px 24px;
+    border-left:1px solid var(--line);
+  }
+  .tb-cell:first-child{border-left:none;}
+  .tb-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    margin-bottom:6px;
+  }
+  .tb-value{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:15px;
+    color:var(--ink);
+    word-break:break-word;
+  }
+  .tb-value a{
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom:1px solid var(--line-strong);
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .tb-value a:hover, .tb-value a:focus-visible{
+    color:var(--amber);
+    border-color:var(--amber);
+  }
+  .tb-value a:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+
+  @media (max-width:640px){
+    .titleblock-inner{
+      grid-template-columns:1fr;
+    }
+    .tb-cell{
+      border-left:none;
+      border-top:1px solid var(--line);
+    }
+    .tb-cell:first-child{border-top:none;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
+
+  <main>
+    <img class="logo" src="assets/logo.png" alt="AAGR Engenharia">
+    <h1>Site em<br><span>construção</span></h1>
+    <p class="tagline">
+      Estamos preparando este espaço. Enquanto isso, fale diretamente com a gente pelos canais abaixo.
+    </p>
+    <p class="status"><span class="dot" aria-hidden="true"></span>Em desenvolvimento</p>
+  </main>
+
+  <footer class="titleblock">
+    <div class="titleblock-inner">
+      <div class="tb-cell">
+        <div class="tb-label">Empresa</div>
+        <div class="tb-value">AAGR Engenharia</div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-label">Telefone</div>
+        <div class="tb-value"><a href="tel:+5511925207982">(11) 92520-7982</a></div>
+      </div>
+      <div class="tb-cell">
+        <div class="tb-label">E-mail</div>
+        <div class="tb-value"><a href="mailto:contato@aagrengenharia.com.br">contato@aagrengenharia.com.br</a></div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
